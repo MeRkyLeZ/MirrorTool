@@ -1,0 +1,131 @@
+.TH "LMIRRORDIST" "1" "Фев 2025" "Mirrortool @VERSION@" "Mirrortool"
+.SH "ИМЯ"
+lmirrordist \- утилита для зеркалирования distfiles пакетов
+.SH "СИНТАКСИС"
+.B lmirrordist  
+[\fIопции\fR] \fI<действие>\fR
+.SH "ДЕЙСТВИЯ"
+.TP
+\fB\-h\fR, \fB\-\-help\fR  
+Показать справку и выйти.
+.TP
+\fB\-\-version\fR  
+Показать версию Mirrortool и выйти.
+.TP
+\fB\-\-mirror\fR  
+Зеркалировать distfiles для указанного репозитория.
+.SH "ОПЦИИ"
+.TP
+\fB\-\-dry\-run\fR  
+Выполнить пробный запуск без внесения изменений (обычно вместе с \fI\-v\fR или \fI\-vv\fR).
+.TP
+\fB\-v\fR, \fB\-\-verbose\fR  
+Выводить дополнительную информацию в stderr (повторные указания увеличивают уровень подробности).
+.TP
+\fB\-\-ignore\-default\-opts\fR  
+Не использовать переменную окружения \fIEMIRRORDIST_DEFAULT_OPTS\fR.
+.TP
+\fB\-\-distfiles\fR=\fIDIR\fR  
+Каталог distfiles для работы (обязательно).
+.TP
+\fB\-j\fR JOBS, \fB\-\-jobs\fR=\fIJOBS\fR  
+Количество одновременно выполняемых заданий.
+.TP
+\fB\-l\fR LOAD, \fB\-\-load\-average\fR=\fILOAD\fR  
+Ограничение средней нагрузки для запуска новых заданий.
+.TP
+\fB\-\-tries\fR=\fITRIES\fR  
+Максимальное число попыток для одного файла (0 — без ограничений; по умолчанию 10).
+.TP
+\fB\-\-repo\fR=\fIREPO\fR  
+Имя репозитория для работы.
+.TP
+\fB\-\-config\-root\fR=\fIDIR\fR  
+Корневая директория конфигурации Portage.
+.TP
+\fB\-\-repositories\-configuration\fR=\fIREPOS_CONF\fR  
+Переопределить конфигурацию репозиториев (формат как в repos.conf (5)).
+.TP
+\fB\-\-strict\-manifests=\fR<y|n>  
+Явно задать значение FEATURES=“strict”.
+.TP
+\fB\-\-failure\-log\fR=\fIFILE\fR  
+Файл для логирования неудачных загрузок (табуляция); открывается в режиме дозаписи.
+.TP
+\fB\-\-success\-log\fR=\fIFILE\fR  
+Файл для логирования успешных загрузок (табуляция); открывается в режиме дозаписи.
+.TP
+\fB\-\-scheduled\-deletion\-log\fR=\fIFILE\fR  
+Файл для логирования запланированных удалений (табуляция); перезаписывается при каждом запуске.
+.TP
+\fB\-\-content\-db\fR=\fIFILE\fR  
+Файл базы данных для сопоставления хэшей содержимого и имён distfiles (для макета content‑hash).
+.TP
+\fB\-\-delete\fR  
+Включить удаление неиспользуемых distfiles.
+.TP
+\fB\-\-deletion\-db\fR=\fIFILE\fR  
+База данных для отслеживания срока жизни файлов, запланированных к удалению.
+.TP
+\fB\-\-deletion\-delay\fR=\fISECONDS\fR  
+Задержка удаления неиспользуемых distfiles в секундах.
+.TP
+\fB\-\-temp\-dir\fR=\fIDIR\fR  
+Временный каталог для загрузок.
+.TP
+\fB\-\-mirror\-overrides\fR=\fIFILE\fR  
+Файл со списком переопределений зеркал.
+.TP
+\fB\-\-mirror\-skip\fR=\fIMIRROR_SKIP\fR  
+Список через запятую зеркал, которые нужно пропустить.
+.TP
+\fB\-\-restrict\-mirror\-exemptions\fR=\fIRESTRICT_EXEMPTIONS\fR  
+Список зеркал (через запятую), для которых игнорируется RESTRICT=“mirror” (см. ebuild (5)).
+.TP
+\fB\-\-verify\-existing\-digest\fR  
+Использовать digest для проверки валидности уже имеющихся distfiles.
+.TP
+\fB\-\-distfiles\-local\fR=\fIDIR\fR  
+Каталог distfiles-local для использования.
+.TP
+\fB\-\-distfiles\-db\fR=\fIFILE\fR  
+База данных для отслеживания, какому ebuild принадлежит distfile.
+.TP
+\fB\-\-recycle\-dir\fR=\fIDIR\fR  
+Каталог для временного хранения удалённых distfiles (для повторного использования).
+.TP
+\fB\-\-recycle\-db\fR=\fIFILE\fR  
+База данных для отслеживания срока жизни файлов в каталоге recycle.
+.TP
+\fB\-\-recycle\-deletion\-delay\fR=\fISECONDS\fR  
+Задержка удаления файлов из recycle-dir в секундах (по умолчанию эквивалент 60 дням).
+.TP
+\fB\-\-fetch\-log\-dir\fR=\fIDIR\fR  
+Каталог для отдельных логов каждой загрузки.
+.TP
+\fB\-\-whitelist\-from\fR=\fIFILE\fR  
+Файл со списком разрешённых файлов (по одному на строку, строки, начинающиеся с #, игнорируются). Можно указывать многократно.
+.TP
+\fB\-\-symlinks\fR  
+Использовать символические ссылки вместо жёстких для связи distfiles с основным макетом.
+.TP
+\fB\-\-layout\-conf\fR=\fIFILE\fR  
+Альтернативный файл layout.conf для выбора макета distfiles. Если не указан, ищется layout.conf в каталоге \-\-distfiles, иначе используется плоский макет.
+.SH "СООБЩЕНИЕ О БАГАХ"
+Пожалуйста, сообщайте об ошибках через <https://bugs.gentoo.org/>.
+.SH "БЛАГОДАРНОСТИ"
+Особая благодарность Брайану Харрингу, автору программы mirror‑dist, на которой основан lmirrordist.
+.SH "АВТОРЫ"
+.nf
+Zac Medico <zmedico@gentoo.org>  
+Arfrever Frehtes Taifersar Arahesis <arfrever@apache.org>  
+.fi
+.SH "ФАЙЛЫ"
+.TP
+.B /etc/portage/make.conf  
+Содержит переменные конфигурации.
+.SH "СМ. ТАКЖЕ"
+.BR ebuild (5),  
+.BR egencache (1),  
+.BR make.conf (5),  
+.BR portage (5)

@@ -1,0 +1,26 @@
+[project]
+name = 'mirrortool'
+dynamic = ['version']
+description = 'Mirrortool a fetch tool for mirroring'
+readme = 'README.md'
+requires-python = '>=3.9'
+license = {file = "LICENSE"}
+authors = [
+  {name = '', email = ''},
+]
+
+dependencies = [
+  "portage>=3.0.68",
+]
+
+[build-system]
+build-backend = 'mesonpy'
+requires = ['meson-python']
+
+[tool.meson-python.args]
+# To get a pure wheel:
+# python -m build --wheel -Csetup-args="-Dnative-extensions=false"
+setup = ['-Dsystem-wide=false']
+
+[project.scripts]
+lmirrordist = 'mirrortool.util.bin_entry_point:bin_entry_point'
